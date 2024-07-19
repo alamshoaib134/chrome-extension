@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <style>
+      body {
+        width: 300px;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+        background-color: #f7f7f7;
+      }
+      #downloadBtn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+      }
+      #imageList {
+        text-align: left;
+        margin-top: 10px;
+      }
+      .imageItem {
+        margin-bottom: 10px;
+        background-color: #ddd;
+        padding: 10px;
+        border-radius: 4px;
+      }
+      .imageItem button {
+        background-color: #008CBA;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+        width: 64px; /* same as image width */
+        height: 32px;
+        padding: 0;
+        font-size: 14px;
+        line-height: 32px;
+      }
+      .imageSize {
+        margin-top: 10px;
+        font-size: 12px;
+      }
+      #sizeFilter {
+        width: 100%;
+        margin: 20px 0;
+      }
+      #imageList {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .imageItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      body {
+        padding-bottom: 40px; /* space for the footer */
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        width: inherit;
+        height: 30px;
+        display: grid;
+        place-items: center;
+        background-color: #e30808;
+        color: #010101;
+        font-size: 14px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <h1>Image Downloader</h1>
+    <label for="sizeFilter">Minimum size (KB): <span id="sizeLabel">0</span></label>
+    <span id="totalCount"></span>
+    <input type="range" id="sizeFilter" min="0" max="500" value="0">
+    <button id="downloadBtn">Download All Images</button>
+    <div id="imageList"></div>
+    <script src="popup.js"></script>
+  </body>
+  <footer>
+       Made with &hearts; by Shoaib
+  </footer>
+
+
+</html>
