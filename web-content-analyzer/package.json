@@ -1,0 +1,20 @@
+{
+  "name": "web-content-analyzer",
+  "version": "1.0.0",
+  "description": "A web extension that analyzes webpage contents and provides summaries.",
+  "main": "src/background/background.js",
+  "scripts": {
+    "build": "echo 'Build script not defined'",
+    "test": "echo 'Test script not defined'"
+  },
+  "keywords": [
+    "web",
+    "extension",
+    "analyzer",
+    "summarizer"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
