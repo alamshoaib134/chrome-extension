@@ -11,7 +11,7 @@ async function getAISummary(text) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer dapi14f200c07bc4cbd061d4eef5039d1ad6'
+                'Authorization': '<ACCESS TOKEN>'
             },
             body: JSON.stringify({
                 model: 'databricks-meta-llama-3-3-70b-instruct',
