@@ -9,10 +9,7 @@ async function getAISummary(text) {
     try {
         const response = await fetch('https://nike-sole-react.cloud.databricks.com/serving-endpoints/chat/completions', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': '<ACCESS TOKEN>'
-            },
+            headers: {},
             body: JSON.stringify({
                 model: 'databricks-meta-llama-3-3-70b-instruct',
                 messages: [
