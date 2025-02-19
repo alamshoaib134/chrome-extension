@@ -1,5 +1,4 @@
 async function analyzePageContent() {
-    // Get all text content from the page
     const pageContent = document.body.innerText;
     const summary = await getAISummary(pageContent);
     sendSummaryToBackground(summary);
@@ -7,11 +6,19 @@ async function analyzePageContent() {
 
 async function getAISummary(text) {
     try {
-        const response = await fetch('https://nike-sole-react.cloud.databricks.com/serving-endpoints/chat/completions', {
+        // Replace with your API endpoint
+        const API_ENDPOINT = 'YOUR_API_ENDPOINT';
+        // Replace with your API key
+        const API_KEY = 'YOUR_API_KEY';
+
+        const response = await fetch(API_ENDPOINT, {
             method: 'POST',
-            headers: {},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_KEY}`
+            },
             body: JSON.stringify({
-                model: 'databricks-meta-llama-3-3-70b-instruct',
+                model: 'YOUR_MODEL_NAME',
                 messages: [
                     {
                         role: 'system',
@@ -25,7 +32,7 @@ async function getAISummary(text) {
                 temperature: 0,
                 top_p: 0.95,
                 max_tokens: 150
-            }) // <-- Closing the JSON object properly
+            })
         });
 
         if (!response.ok) {
