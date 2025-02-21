@@ -5,8 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 const content = response.content;
                 document.getElementById('original-content').textContent = content;
                 
-                const summary = generateSummary(content);
-                document.getElementById('summary-content').textContent = summary;
+                // Trigger the content script to generate AI summary
+                chrome.tabs.sendMessage(tabs[0].id, {action: "generateAISummary"}, (summaryResponse) => {
+                    if (summaryResponse && summaryResponse.summary) {
+                        document.getElementById('summary-content').textContent = summaryResponse.summary;
+                    } else {
+                        document.getElementById('summary-content').textContent = 'Failed to generate AI summary.';
+                    }
+                });
             } else {
                 document.getElementById('original-content').textContent = 
                     'Unable to extract content from this page.';
@@ -16,19 +22,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
-function generateSummary(content) {
-    if (!content) return 'No content to summarize';
-    
-    const sentences = content.split(/[.!?]+/)
-        .map(sentence => sentence.trim())
-        .filter(sentence => sentence.length > 0);
-    
-    const significantSentences = sentences
-        .filter(sentence => sentence.length > 20)
-        .slice(0, 3);
-    
-    return significantSentences.length > 0 
-        ? significantSentences.join('. ') + '.'
-        : 'No significant content found';
-}
