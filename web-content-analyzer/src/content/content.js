@@ -1,4 +1,5 @@
 async function analyzePageContent() {
+    // Get all text content from the page
     const pageContent = document.body.innerText;
     const summary = await getAISummary(pageContent);
     sendSummaryToBackground(summary);
@@ -6,46 +7,33 @@ async function analyzePageContent() {
 
 async function getAISummary(text) {
     try {
-        // Replace with your API endpoint
-        const API_ENDPOINT = 'YOUR_API_ENDPOINT';
-        // Replace with your API key
-        const API_KEY = 'YOUR_API_KEY';
+        if (!text || text.trim().length === 0) {
+            throw new Error('No content to summarize');
+        }
 
-        const response = await fetch(API_ENDPOINT, {
+        const response = await fetch('http://localhost:11434/api/generate', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: 'YOUR_MODEL_NAME',
-                messages: [
-                    {
-                        role: 'system',
-                        content: text
-                    },
-                    {
-                        role: 'user',
-                        content: 'help me in summarizing.'
-                    }
-                ],
-                temperature: 0,
-                top_p: 0.95,
-                max_tokens: 150
+                model: 'llama3.2',
+                prompt: 'Why is the sky blue?'
             })
         });
 
         if (!response.ok) {
-            throw new Error('API request failed');
+            throw new Error('Failed to fetch from local API');
         }
 
-        const data = await response.json();
-        return data.choices[0].message.content;
+        const result = await response.json();
+        return result && result.response ? result.response : 'No summary received';
     } catch (error) {
         console.error('Error getting summary:', error);
-        return 'Failed to generate summary';
+        return `Failed to generate summary: ${error.message}`;
     }
 }
+
 
 function sendSummaryToBackground(summary) {
     chrome.runtime.sendMessage({ summary: summary });
@@ -58,6 +46,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             content: mainContent,
             success: true
         });
+    } else if (request.action === "generateAISummary") {
+        analyzePageContent().then(summary => {
+            sendResponse({ summary: summary });
+        });
+        return true; // Required for async response
     }
     return true;
 });
