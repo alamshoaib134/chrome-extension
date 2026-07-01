@@ -1,3 +1,5 @@
+Developed with 🧠 by **[Shoaib Alam](https://alamshoaib134.github.io/)** (AI Engineer at JPMC | NLP Researcher @ IIT Gandhinagar | Hybrid RAG Pioneer)
+---
 # Chrome Extensions Repository
 
 This repository is dedicated to the Chrome Extensions I have developed, aimed at enhancing the browsing experience by introducing new functionalities directly into the Chrome browser. Currently, the repository hosts two main extensions: **Glossary** and **Image Downloader**. Each extension is organized into its own directory, which includes the source code, necessary assets, and a README for documentation.
